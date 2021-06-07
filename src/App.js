@@ -7,9 +7,32 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 //function App() {
   class App extends Component {
-    
+    constructor(props) {
+      super(props);
+      this.state = {
+          current_currency: '',
+          desired_currency:''
+      };
+      this.getConvertedValue = this.getConvertedValue.bind(this);
+      }
+
+      getConvertedValue(){
+        this.setState({
+          current_currency:document.getElementById('current_currency').value,
+          desired_currency:document.getElementById('desired_currency').value
+        });
+     
+      }
+      handleChange = (event) => {
+        event.preventDefault();
+        console.log(event);
+        this.setState({ current_currency: event.target.value });
+        console.log(this.state);
+      }
+
 
   render (){
     return(
@@ -25,18 +48,32 @@ import Form from 'react-bootstrap/Form';
    <Form.Control type="email" placeholder="100" />
  </Form.Group>
      <Card.Text>
-     <Form.Group controlId="exampleForm.ControlSelect1">
-     <Form.Label>Select Currency</Form.Label>
-         <Form.Control as="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
+     <Form.Group >
+     <Form.Label>Select Current Currency</Form.Label>
+         <Form.Control as="select" id="current_currency" onChange={this.handleChange}>
+           <option value="GBP">GBP</option>
+           <option value="EUR">EUR</option>
+           <option value="USD">USD</option>
+           <option value="JPY">JPY</option>
+           <option value="HKD">HKD</option>
          </Form.Control>
        </Form.Group>
-       Some quick example text to build on the card title and make up the bulk
-       of the card's content.
+       <Form.Group >
+      <Form.Label>Select Desired Currency</Form.Label>
+         <Form.Control as="select" id="desired_currency">
+         <option value="GBP">GBP</option>
+           <option value="EUR">EUR</option>
+           <option value="USD">USD</option>
+           <option value="JPY">JPY</option>
+           <option value="HKD">HKD</option>
+         </Form.Control>
+       </Form.Group>
+       
+
+       <Button variant="primary" size="lg" block onClick={this.getConvertedValue}>
+  Convert
+  </Button>
+      
      </Card.Text>
    </Card.Body>
  </Card>
