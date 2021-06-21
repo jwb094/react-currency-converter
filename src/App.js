@@ -15,7 +15,8 @@ import axios from  'axios';
       super(props);
       this.state = {
           converted_amount: '',
-          desired_currency:''
+          desired_currency:'',
+          new_amount:''
       };
       this.getConvertedValue = this.getConvertedValue.bind(this);
       }
@@ -31,8 +32,11 @@ import axios from  'axios';
             .then(function (response) {
               // handle success
               
-              console.log(response.data.conversion_rate);
-              console.log(response.data.conversion_result);
+              //console.log(response.data.conversion_rate);
+              //console.log(response.data.conversion_result);
+              this.setState({
+                new_amount:response.data
+              });
             })
             .catch(function (error) {
               console.log(error);
@@ -61,16 +65,7 @@ import axios from  'axios';
    <Form.Control type="text" placeholder="100"  id="amount"/>
  </Form.Group>
      <Card.Text>
-     {/* <Form.Group >
-     <Form.Label>Select Current Currency</Form.Label>
-         <Form.Control as="select" id="current_currency" onChange={this.handleChange}>
-           <option value="GBP">GBP</option>
-           <option value="EUR">EUR</option>
-           <option value="USD">USD</option>
-           <option value="JPY">JPY</option>
-           <option value="HKD">HKD</option>
-         </Form.Control>
-       </Form.Group> */}
+
        <Form.Group >
       <Form.Label>Select Desired Currency</Form.Label>
          <Form.Control as="select" id="desired_currency" onChange={this.handleChange}>
